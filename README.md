@@ -1,2 +1,0 @@
-# ALX Specialization Project
-<hr>
