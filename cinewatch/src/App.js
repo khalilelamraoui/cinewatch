@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Browse from './pages/Browse';
 import Watchlist from './pages/Watchlist';
+import Homepage from './pages/Homepage';
 import { isAuthenticated } from './services/auth';
 
 function PrivateRoute({ children }) {
@@ -20,7 +21,8 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Browse />} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="/browse" element={<Browse />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />

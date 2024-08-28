@@ -6,6 +6,7 @@ import { BiMoviePlay } from "react-icons/bi";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { TiClipboard } from "react-icons/ti";
 import { IoLogOutOutline } from "react-icons/io5";
+import { FiLogIn } from "react-icons/fi";
 
 function Header() {
   const navigate = useNavigate();
@@ -16,34 +17,40 @@ function Header() {
   };
 
   return (
-    <header className="bg-gray-800 text-white">
+    <header className="bg-black text-white">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold">Watchlist Maker</Link>
+        <Link to="/" className="text-3xl font-bold">
+          <span className='text-red-700'>Cine</span>
+          Watch
+        </Link>
+        
         <ul className="flex space-x-4">
-          <li><Link to="/" className="hover:text-gray-300 inline-flex items-center gap-1">
-            <BiMoviePlay/>
-            Browse</Link>
-          </li>
           {isAuthenticated() ? (
             <>
+              <li><Link to="/browse" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
+                <BiMoviePlay/>
+                Browse</Link>
+              </li>
               <li>
-                <Link to="/dashboard" className="hover:text-gray-300 inline-flex items-center gap-1">
+                <Link to="/dashboard" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
                     <RiDashboardHorizontalLine/>
                     Dashboard</Link>
               </li>
-              <li><Link to="/watchlist" className="hover:text-gray-300 inline-flex items-center gap-1">
+              <li><Link to="/watchlist" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
                 <TiClipboard/>
                 Watchlist</Link>
               </li>
-              <li><button onClick={handleLogout} className="hover:text-gray-300 inline-flex items-center gap-1">
+              <li><button onClick={handleLogout} className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
                 <IoLogOutOutline/>
                 Logout</button>
               </li>
             </>
           ) : (
             <>
-              <li><Link to="/login" className="hover:text-gray-300">Login</Link></li>
-              <li><Link to="/register" className="hover:text-gray-300">Register</Link></li>
+              <li><Link to="/login" className="hover:text-red-600 text-xl font-semibold transition-all duration-200">
+                Login</Link>
+              </li>
+              <li className=''><Link to="/register" className="hover:bg-red-900 font-semibold bg-red-600 px-4 py-2 rounded-lg text-xl transition-all duration-200">Register</Link></li>
             </>
           )}
         </ul>
