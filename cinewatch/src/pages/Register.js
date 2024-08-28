@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../services/auth';
+import { login } from '../services/auth';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -17,7 +18,8 @@ function Register() {
       return;
     }
     if (register(username, email, password)) {
-      navigate('/login');
+      login(username, password);
+      navigate('/dashboard');
     } else {
       setError('Username or email already exists');
     }
