@@ -42,7 +42,7 @@ function MovieDetails() {
     <div className="relative">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center z-0 opacity-50"
+        className="absolute inset-0 blur-sm bg-cover bg-center z-0"
         style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}
       ></div>
       
@@ -59,31 +59,31 @@ function MovieDetails() {
           </div>
           
           {/* Details */}
-          <div className="md:w-2/3 text-black">
-            <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
+          <div className="md:w-2/3 text-white">
+            <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
             
             <div className="flex items-center space-x-4 mb-6">
-              <span className="flex items-center">
+              <span className="flex items-center font-semibold">
                 <FaStar className="text-yellow-400 mr-1" />
                 {movie.vote_average.toFixed(1)}
               </span>
-              <span className="flex items-center">
+              <span className="flex items-center font-semibold">
                 <FaClock className="mr-1" />
                 {movie.runtime} min
               </span>
-              <span className="flex items-center">
+              <span className="flex items-center font-semibold">
                 <FaCalendarAlt className="mr-1" />
                 {new Date(movie.release_date).getFullYear()}
               </span>
             </div>
             
-            <p className="text-lg mb-6">{movie.overview}</p>
+            <p className="text-xl italic mb-6">{movie.overview}</p>
             
             <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-2">Genres</h2>
+              <h2 className="text-2xl font-semibold mb-2">Genres</h2>
               <div className="flex flex-wrap gap-2">
                 {movie.genres.map(genre => (
-                  <span key={genre.id} className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
+                  <span key={genre.id} className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-xl">
                     {genre.name}
                   </span>
                 ))}
@@ -92,10 +92,10 @@ function MovieDetails() {
             
             {movie.production_companies && movie.production_companies.length > 0 && (
               <div>
-                <h2 className="text-xl font-semibold mb-2">Production Companies</h2>
+                <h2 className="text-2xl font-semibold mb-2">Production Companies</h2>
                 <div className="flex flex-wrap gap-4">
                   {movie.production_companies.map(company => (
-                    <div key={company.id} className="flex items-center bg-gray-200 opacity-80 rounded-lg p-1">
+                    <div key={company.id} className="flex items-center bg-gray-200 backdrop-blur-sm rounded-lg px-2 py-1">
                       {company.logo_path ? (
                         <img
                           src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
@@ -105,7 +105,7 @@ function MovieDetails() {
                       ) : (
                         <div className="w-10 h-10 bg-gray-700 rounded-full mr-2"></div>
                       )}
-                      <span>{company.name}</span>
+                      <span className='text-black font-semibold'>{company.name}</span>
                     </div>
                   ))}
                 </div>
