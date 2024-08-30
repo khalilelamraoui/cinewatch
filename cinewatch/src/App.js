@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Browse from './pages/Browse';
 import Watchlist from './pages/Watchlist';
 import Homepage from './pages/Homepage';
+import MovieDetails from './pages/MovieDetails'; // Add this import
 import { isAuthenticated } from './services/auth';
 
 function PrivateRoute({ children }) {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/watchlist" element={<PrivateRoute><Watchlist /></PrivateRoute>} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
           </Routes>
         </main>
         <Footer />
