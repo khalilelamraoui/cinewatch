@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails } from '../services/api';
-import { FaStar, FaClock, FaCalendarAlt } from 'react-icons/fa';
+import { addToWatchlist } from '../services/localStorage';
+import { removeFromWatchlist } from '../services/localStorage';
+import { FaStar, FaClock, FaCalendarAlt, FaPlus, FaCheck } from 'react-icons/fa';
 
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [inWatchlist, setInWatchlist] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -15,6 +18,9 @@ function MovieDetails() {
         setLoading(true);
         const details = await getMovieDetails(id);
         setMovie(details);
+        // Check if the movie is in the watchlist
+        const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+        setInWatchlist(watchlist.includes(details.id));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -25,6 +31,24 @@ function MovieDetails() {
 
     fetchMovieDetails();
   }, [id]);
+
+  const handleWatchlistToggle = () => {
+    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    
+    if (inWatchlist) {
+      // Remove from watchlist
+      const updatedWatchlist = watchlist.filter(movieId => movieId !== movie.id);
+      localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+      setInWatchlist(false);
+      removeFromWatchlist(movie.id);
+    } else {
+      // Add to watchlist
+      addToWatchlist(movie);
+      watchlist.push(movie.id);
+      localStorage.setItem('watchlist', JSON.stringify(watchlist));
+      setInWatchlist(true);
+    }
+  };
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -78,6 +102,26 @@ function MovieDetails() {
             </div>
             
             <p className="text-xl italic mb-6">{movie.overview}</p>
+            
+            {/* Watchlist Button */}
+            <button
+              onClick={handleWatchlistToggle}
+              className={`${
+                inWatchlist ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
+              } text-white font-bold py-2 px-4 rounded-full flex items-center mb-6 transition duration-300 ease-in-out transform hover:scale-105`}
+            >
+              {inWatchlist ? (
+                <>
+                  <FaCheck className="mr-2" />
+                  In Watchlist
+                </>
+              ) : (
+                <>
+                  <FaPlus className="mr-2" />
+                  Add to Watchlist
+                </>
+              )}
+            </button>
             
             <div className="mb-6">
               <h2 className="text-2xl font-semibold mb-2">Genres</h2>
