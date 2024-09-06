@@ -7,6 +7,7 @@ import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { TiClipboard } from "react-icons/ti";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FiLogIn } from "react-icons/fi";
+import logo from '../img/cinewatch.png';
 
 function Header() {
   const navigate = useNavigate();
@@ -19,9 +20,11 @@ function Header() {
   return (
     <header className="bg-black text-white">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-3xl font-bold">
-          <span className='text-red-700'>Cine</span>
-          Watch
+        <Link to="/" className="text-3xl hover:opacity-60 transition-all duration-100">
+          <img src={logo} alt="CineWatch" className="h-12 inline-block mr-2"/>
+          
+          {/* <span className='text-red-700'>Cine</span>
+          Watch */}
         </Link>
         
         <ul className="flex space-x-4">
