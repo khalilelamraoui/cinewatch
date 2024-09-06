@@ -27,23 +27,23 @@ function Header() {
           Watch */}
         </Link>
         
-        <ul className="flex space-x-4">
+        <ul className="flex space-x-2">
           {isAuthenticated() ? (
             <>
-              <li><Link to="/browse" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
+              <li><Link to="/browse" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1 px-2 py-1">
                 <BiMoviePlay/>
                 Browse</Link>
               </li>
               <li>
-                <Link to="/dashboard" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
+                <Link to="/dashboard" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1 px-2 py-1">
                     <RiDashboardHorizontalLine/>
                     Dashboard</Link>
               </li>
-              <li><Link to="/watchlist" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
+              <li><Link to="/watchlist" className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1 px-2 py-1">
                 <TiClipboard/>
                 Watchlist</Link>
               </li>
-              <li><button onClick={handleLogout} className="hover:text-red-600 text-xl transition-all duration-200 inline-flex items-center gap-1">
+              <li><button onClick={handleLogout} className="hover:text-black text-xl transition-all duration-200 inline-flex items-center gap-1 bg-red-600 px-2 py-1 rounded">
                 <IoLogOutOutline/>
                 Logout</button>
               </li>
