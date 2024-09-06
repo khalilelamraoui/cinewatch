@@ -82,7 +82,7 @@ function Browse() {
           placeholder="Search movies..."
           className="w-full p-2 border rounded"
         />
-        <button type="submit" className="mt-2 bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="mt-2 bg-red-500 text-white px-4 py-2 rounded">
           Search
         </button>
       </form>
@@ -125,7 +125,7 @@ function Browse() {
                 key={i}
                 onClick={() => handlePageChange(i + 1)}
                 className={`px-3 py-1 rounded ${
-                  page === i + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                  page === i + 1 ? 'bg-red-500 text-white' : 'bg-gray-200'
                 }`}
               >
                 {i + 1}
