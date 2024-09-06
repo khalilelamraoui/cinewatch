@@ -90,5 +90,6 @@
 }
 
 .card .info button:hover {
+  background-color: red;
   color: white;
 }
