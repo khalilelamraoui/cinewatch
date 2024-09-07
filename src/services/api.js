@@ -54,3 +54,19 @@ export const getGenres = async () => {
   });
   return response.data.genres;
 };
+
+export const getMovieCredits = async (movieId) => {
+  const response = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch movie credits');
+  }
+  return response.json();
+};
+
+export const getMovieVideos = async (movieId) => {
+  const response = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch movie videos');
+  }
+  return response.json();
+};
