@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails, getMovieCredits, getMovieVideos } from '../services/api';
-import { addToWatchlist, removeFromWatchlist } from '../services/localStorage';
 import { FaStar, FaClock, FaCalendarAlt, FaPlus, FaCheck, FaPlay } from 'react-icons/fa';
+import { addToWatchlist } from '../services/localStorage';
 
 function MovieDetails() {
   const { id } = useParams();
@@ -14,10 +14,12 @@ function MovieDetails() {
   const [inWatchlist, setInWatchlist] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
+  // Get current user from localStorage
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
-        setLoading(true);
         const [details, credits, videos] = await Promise.all([
           getMovieDetails(id),
           getMovieCredits(id),
@@ -27,9 +29,11 @@ function MovieDetails() {
         setCredits(credits);
         setVideos(videos.results);
         
-        // Check if the movie is in the watchlist
-        const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
-        setInWatchlist(watchlist.includes(details.id));
+        // Check if the movie is in the user's watchlist
+        if (currentUser) {
+          const userWatchlist = JSON.parse(localStorage.getItem(`watchlist_${currentUser.username}`)) || [];
+          setInWatchlist(userWatchlist.includes(details.id));
+        }
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movie data:', error);
@@ -39,20 +43,26 @@ function MovieDetails() {
     };
 
     fetchMovieData();
-  }, [id]);
+  }, [id, currentUser]);
 
   const handleWatchlistToggle = () => {
-    const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+    if (!currentUser) {
+      // Handle case where user is not logged in
+      alert("Please log in to manage your watchlist.");
+      return;
+    }
+
+    const userWatchlistKey = `watchlist_${currentUser.username}`;
+    let userWatchlist = JSON.parse(localStorage.getItem(userWatchlistKey)) || [];
     
     if (inWatchlist) {
-      const updatedWatchlist = watchlist.filter(movieId => movieId !== movie.id);
-      localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
-      removeFromWatchlist(movie.id);
+      userWatchlist = userWatchlist.filter(movieId => movieId !== movie.id);
     } else {
-      addToWatchlist(movie);
-      watchlist.push(movie.id);
-      localStorage.setItem('watchlist', JSON.stringify(watchlist));
+      addToWatchlist(movie, currentUser.username);
+      userWatchlist.push(movie.id);
     }
+
+    localStorage.setItem(userWatchlistKey, JSON.stringify(userWatchlist));
 
     setIsClicked(true);
     setInWatchlist(!inWatchlist);
