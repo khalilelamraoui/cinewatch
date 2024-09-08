@@ -12,6 +12,7 @@ function MovieDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [inWatchlist, setInWatchlist] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const fetchMovieData = async () => {
@@ -46,14 +47,24 @@ function MovieDetails() {
     if (inWatchlist) {
       const updatedWatchlist = watchlist.filter(movieId => movieId !== movie.id);
       localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
-      setInWatchlist(false);
       removeFromWatchlist(movie.id);
     } else {
       addToWatchlist(movie);
       watchlist.push(movie.id);
       localStorage.setItem('watchlist', JSON.stringify(watchlist));
-      setInWatchlist(true);
     }
+
+    setIsClicked(true);
+    setInWatchlist(!inWatchlist);
+
+    setTimeout(() => {
+      setIsClicked(false);
+    }, 1000);
+  };
+
+  const getButtonColor = () => {
+    if (isClicked) return 'bg-green-600 hover:bg-green-700';
+    return inWatchlist ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700';
   };
 
   if (loading) {
@@ -110,9 +121,7 @@ function MovieDetails() {
             <div className="flex space-x-4 mb-6">
               <button
                 onClick={handleWatchlistToggle}
-                className={`${
-                  inWatchlist ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
-                } text-white font-bold py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105`}
+                className={`${getButtonColor()} text-white font-bold py-2 px-4 rounded-full flex items-center transition duration-300 ease-in-out transform hover:scale-105`}
               >
                 {inWatchlist ? (
                   <>
