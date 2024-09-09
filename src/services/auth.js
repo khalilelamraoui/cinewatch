@@ -1,6 +1,49 @@
-// auth.js
+export const addToWatchlist = (movie) => {
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-// Existing functions in auth.js
+  if (currentUser) {
+    const userIndex = users.findIndex(u => u.username === currentUser.username);
+    if (userIndex !== -1) {
+      if (!users[userIndex].watchlist) {
+        users[userIndex].watchlist = [];
+      }
+      // Add the 'watched' field to the movie object
+      const movieWithWatched = { ...movie, watched: false };
+      users[userIndex].watchlist.push(movieWithWatched);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+      return true;
+    }
+  }
+  return false;
+};
+
+export const getWatchlist = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  return currentUser && currentUser.watchlist ? currentUser.watchlist : [];
+};
+
+// New function to toggle the watched status of a movie
+export const toggleWatchedStatus = (movieId) => {
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  if (currentUser) {
+    const userIndex = users.findIndex(u => u.username === currentUser.username);
+    if (userIndex !== -1) {
+      const movieIndex = users[userIndex].watchlist.findIndex(m => m.id === movieId);
+      if (movieIndex !== -1) {
+        users[userIndex].watchlist[movieIndex].watched = !users[userIndex].watchlist[movieIndex].watched;
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
 const getUsers = () => JSON.parse(localStorage.getItem('users') || '[]');
 const setUsers = (users) => localStorage.setItem('users', JSON.stringify(users));
 

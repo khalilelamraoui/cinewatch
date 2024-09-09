@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import loginBg from '../img/loginbg.jpg';
 import { getUsers } from '../services/auth';
+import loginBg from '../img/loginbg.jpg';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -10,19 +10,17 @@ function ForgotPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const users = getUsers();  // Fetch users from local storage
-    const user = users.find(u => u.email === email);
-    
-    if (user) {
-      localStorage.setItem('resetEmail', email); // Temporarily store email for password reset
-      setMessage('If an account with that email exists, a reset link has been sent.');
+    const users = getUsers();
+    const userExists = users.some(user => user.email === email);
+
+    if (userExists) {
+      setMessage('If an account with that email exists, we have sent a password reset link.');
+      setTimeout(() => {
+        navigate('/reset-password', { state: { email } });  // Pass email to reset password page
+      }, 3000);
     } else {
-      setMessage('If an account with that email exists, a reset link has been sent.');
+      setMessage('Invalid email address. Please try again.');
     }
-  
-    setTimeout(() => {
-      navigate('/reset-password');  // Redirect to the reset password page
-    }, 3000);
   };
 
   return (
@@ -51,7 +49,7 @@ function ForgotPassword() {
           </h2>
         </div>
         {message && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <div className={`${message.includes('Invalid') ? 'bg-red-100 border-red-400 text-red-700' : 'bg-green-100 border-green-400 text-green-700'} px-4 py-3 rounded relative`} role="alert">
             <span className="block sm:inline">{message}</span>
           </div>
         )}

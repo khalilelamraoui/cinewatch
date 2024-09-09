@@ -1,40 +1,43 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getUsers, setUsers } from '../services/auth'; // Import necessary functions
 import loginBg from '../img/loginbg.jpg';
-import { getUsers, setUsers } from '../services/auth';
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();  // Use this to get the email from state
+  const { email } = location.state || {};  // Get the email from the navigation state
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!email) {
+      setMessage('Invalid reset request.');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
       return;
     }
-    
-    const resetEmail = localStorage.getItem('resetEmail');
-    if (!resetEmail) {
+
+    const users = getUsers();
+    const userIndex = users.findIndex(user => user.email === email);
+
+    if (userIndex === -1) {
       setMessage('Invalid reset request.');
       return;
     }
-  
-    const users = getUsers();
-    const userIndex = users.findIndex(u => u.email === resetEmail);
-    if (userIndex !== -1) {
-      users[userIndex].password = password; // Update user's password
-      setUsers(users); // Save updated users back to local storage
-      localStorage.removeItem('resetEmail'); // Clear the resetEmail after successful reset
-      setMessage('Password has been reset successfully');
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-    } else {
-      setMessage('Failed to reset password. Please try again.');
-    }
+
+    users[userIndex].password = password;
+    setUsers(users);  // Update the users in local storage
+
+    setMessage('Password has been reset successfully');
+    setTimeout(() => {
+      navigate('/login');
+    }, 3000);
   };
 
   return (
