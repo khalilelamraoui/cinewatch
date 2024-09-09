@@ -19,7 +19,7 @@ function Watchlist() {
       {watchlist.length === 0 ? (
         <p>Your watchlist is empty. Start browsing movies to add some!</p>
       ) : (
-        <div className="space-y-4">
+        <div className="flex items-center gap-4 flex-wrap">
           {watchlist.map(movie => (
             <WatchlistItem key={movie.id} movie={movie} onRemove={handleRemove} />
           ))}
