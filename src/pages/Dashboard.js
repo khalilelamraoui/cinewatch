@@ -38,20 +38,20 @@ function Dashboard() {
     <div className="min-h-screen h-full flex items-center justify-center relative overflow-hidden bg-gray-900">
       {/* Background image for the entire page */}
       <div 
-        className="w-full bg-no-repeat bg-cover bg-center backdrop-blur-sm"
-        style={{
-          backgroundImage: `url(${loginBg})`,
-        }}
-      >
-        <div 
-        className="container mx-auto px-4 py-8 relative bg-black bg-opacity-70 rounded-lg shadow-lg"
-        style={{ background: `transparent`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        className="absolute inset-0 bg-no-repeat bg-cover bg-center blur-sm opacity-70"
+        style={{ backgroundImage: `url(${loginBg})` }}
+      ></div>
+
+      {/* Main dashboard container with background image */}
+      <div 
+        className="container mx-auto px-4 py-8 relative bg-black bg-opacity-70 rounded-lg shadow-lg backdrop-blur-lg"
+        style={{ backgroundImage: `url(${dashboardBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         {/* Title */}
         <h1 className="text-4xl font-extrabold text-white text-center mb-8">Dashboard</h1>
         
         {/* Greeting container */}
-        <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 mb-8 flex flex-col items-center backdrop-blur-sm">
+        <div className="bg-gray-800 bg-opacity-90 rounded-lg shadow-lg p-6 mb-8 flex flex-col items-center">
           <h2 className="text-3xl font-semibold text-white mb-4">{getGreeting(user)}</h2>
           <p className="text-lg text-gray-300 mb-2">Email: {user.email}</p>
           <p className="text-lg text-gray-300 mb-4">You have {totalMovies} movies in your watchlist.</p>
@@ -60,9 +60,9 @@ function Dashboard() {
           </Link>
         </div>
         
-        <div className='flex justify-between items-center gap-4 h-full mb-8'>
+        <div className='flex flex-col lg:flex-row gap-4 mb-8'>
           {/* Movie Stats Section */}
-          <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 backdrop-blur-md w-full">
+          <div className="bg-gray-800 bg-opacity-90 rounded-lg shadow-lg p-6 flex-1">
             <h2 className="text-2xl font-bold text-white mb-6">Movie Stats</h2>
             <div className="flex justify-between items-center mb-4">
               <p className="text-white font-bold">Total Movies:</p>
@@ -89,7 +89,7 @@ function Dashboard() {
           </div>
            
           {/* Quick Links */}
-          <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 w-full h-full backdrop-blur-md">
+          <div className="bg-gray-800 bg-opacity-90 rounded-lg shadow-lg p-6 flex-1">
             <h2 className="text-2xl font-bold text-white mb-6">Quick Links</h2>
             <ul className="space-y-4">
               <li>
@@ -101,30 +101,33 @@ function Dashboard() {
             </ul>
           </div> 
         </div>
-
-           {/* Watchlist Section */}
-        <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 mb-8 backdrop-blur-md">
+   {/* Watchlist Section */}
+   <div className="bg-gray-800 bg-opacity-90 rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6">Your Watchlist</h2>
-          <ul className="space-y-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {watchlist.map(movie => (
-              <li key={movie.id} className="flex justify-between items-center">
-                <span className="text-white font-bold">{movie.title}</span>
+              <div key={movie.id} className="flex flex-col">
+                <Link to={`/movie/${movie.id}`} className="card bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="p-2">
+                    <h1 className='text-sm font-semibold text-white text-center truncate'>{movie.title}</h1>
+                  </div>
+                </Link>
                 <button 
                   onClick={() => handleToggleWatched(movie.id)}
-                  className={`px-4 py-2 rounded ${movie.watched ? 'bg-green-500' : 'bg-gray-500'} text-white`}
+                  className={`mt-3 px-3 py-1 rounded text-xs ${movie.watched ? 'bg-green-500' : 'bg-gray-500'} text-white w-full`}
                 >
                   {movie.watched ? 'Watched' : 'Mark as Watched'}
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
-
       </div>
-      </div>
-
-      {/* Main dashboard container with background image */}
-      
     </div>
   );
 }
