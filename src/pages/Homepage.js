@@ -6,10 +6,10 @@ import { BiMoviePlay } from "react-icons/bi";
 export default function Homepage() {
     return (
         <div 
-          className="bg-cover bg-center h-[93vh] flex flex-col justify-center items-center text-center text-white"
+          className="bg-cover bg-bottom h-[93vh] flex flex-col justify-center items-center text-center text-white"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          <h1 className="text-6xl -mt-20 font-bold mb-6 w-1/3">
+          <h1 className="text-6xl -mt-20 font-bold mb-6 xl:w-1/3 w-full shadow-lg-text lg:leading-snug">
             The Best Content<br/> At <span className="text-red-600">One Place</span>
           </h1>
           <p className='text-xl opacity-80'>
