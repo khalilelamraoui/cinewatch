@@ -59,7 +59,7 @@ function Header() {
   );
 
   return (
-    <header className="bg-black text-white relative z-50">
+    <header className="bg-black text-white relative z-50 ">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-3xl hover:opacity-60 transition-all duration-100 z-50">
           <img src={logo} alt="CineWatch" className="h-12 inline-block mr-2"/>

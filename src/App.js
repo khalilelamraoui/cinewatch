@@ -12,6 +12,7 @@ import Watchlist from './pages/Watchlist';
 import Homepage from './pages/Homepage';
 import MovieDetails from './pages/MovieDetails';
 import { isAuthenticated } from './services/auth';
+import './App.css';
 
 function PrivateRoute({ children }) {
   return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -20,7 +21,7 @@ function PrivateRoute({ children }) {
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen font-work-sans">
         <Header />
         <main className="flex-grow">
           <Routes>

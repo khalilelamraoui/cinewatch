@@ -10,7 +10,7 @@ module.exports = {
         'accent': '#4a5568',
       },
       fontFamily: {
-        'sans': ['Roboto', 'Arial', 'sans-serif'],
+        'work-sans': ['"Work Sans"', 'sans-serif'],
       },
     },
   },
