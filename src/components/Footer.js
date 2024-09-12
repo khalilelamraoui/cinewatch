@@ -13,12 +13,12 @@ const Footer = () => {
             <Link to="/" className="text-3xl hover:opacity-60 transition-all duration-100 z-50">
               <img src={logo} alt="CineWatch" className="h-12 inline-block mr-2"/>
             </Link>
-            <p className="text-gray-400 text-lg mt-2">The nest that works for you.</p>
+            <p className="text-gray-400 text-lg mt-2">Your Next Movie, One List Away.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-3">Company</h3>
+              <h3 className="text-lg font-semibold mb-3 text-red-600">Company</h3>
               <ul className="space-y-2">
                 <li><Link to="#" className="text-gray-400 hover:text-white">Features</Link></li>
                 <li><Link to="#" className="text-gray-400 hover:text-white">Pricings</Link></li>
@@ -28,7 +28,7 @@ const Footer = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-3">Support</h3>
+              <h3 className="text-lg font-semibold mb-3 text-red-600">Support</h3>
               <ul className="space-y-2">
                 <li><Link to="#" className="text-gray-400 hover:text-white">Help Center</Link></li>
                 <li><Link to="#" className="text-gray-400 hover:text-white">Report Bug</Link></li>
@@ -37,7 +37,7 @@ const Footer = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-3">About</h3>
+              <h3 className="text-lg font-semibold mb-3 text-red-600">About</h3>
               <ul className="space-y-2">
                 <li><Link to="#" className="text-gray-400 hover:text-white">Our Team</Link></li>
                 <li><Link to="#" className="text-gray-400 hover:text-white">Our Mission</Link></li>
@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+        <div className="mt-8 pt-8 border-t border-red-600 text-center text-gray-400">
           <p>&copy; {currentYear} Nest. All rights reserved.</p>
         </div>
       </div>
