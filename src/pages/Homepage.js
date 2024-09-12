@@ -95,7 +95,7 @@ export default function Homepage() {
   }, []);
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="min-h-screen bg-black" style={{backgroundImage: `linear-gradient(to top, #330e0e, #000000, #af1717)`}}>
       {/* Hero Section */}
       <div
         className="bg-cover bg-center h-screen flex flex-col justify-center items-center text-white relative"
