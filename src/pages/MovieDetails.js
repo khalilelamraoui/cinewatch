@@ -92,13 +92,13 @@ function MovieDetails() {
   const trailer = videos.find(video => video.type === 'Trailer');
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <div 
-        className="absolute inset-0 blur-sm bg-cover bg-center z-0"
+        className="absolute inset-0 bg-cover bg-center z-0"
         style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}
       ></div>
       
-      <div className="relative z-10 container mx-auto px-4 py-12">
+      <div className="relative z-10 container mx-auto px-4 py-12 bg-black bg-opacity-70 backdrop-blur-sm">
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/3">
             <img

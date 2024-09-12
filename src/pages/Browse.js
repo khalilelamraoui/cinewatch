@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPopularMovies, searchMovies, getMoviesByGenre, getGenres } from '../services/api';
 import MovieCard from '../components/MovieCard';
+import loginBg from '../img/loginbg.jpg';
 
 function Browse() {
   const [movies, setMovies] = useState([]);
@@ -72,68 +73,77 @@ function Browse() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Browse Movies</h1>
-      <form onSubmit={handleSearch} className="mb-8">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search movies..."
-          className="w-full p-2 border rounded"
-        />
-        <button type="submit" className="mt-2 bg-red-500 text-white px-4 py-2 rounded">
-          Search
-        </button>
-      </form>
-      <div className="mb-8 flex space-x-4">
-        <select
-          value={selectedGenre}
-          onChange={handleGenreChange}
-          className="p-2 border rounded"
-        >
-          <option value="">All Genres</option>
-          {genres.map(genre => (
-            <option key={genre.id} value={genre.id}>{genre.name}</option>
-          ))}
-        </select>
-        <select
-          value={sortBy}
-          onChange={handleSortChange}
-          className="p-2 border rounded"
-        >
-          <option value="popularity.desc">Popularity Descending</option>
-          <option value="popularity.asc">Popularity Ascending</option>
-          <option value="vote_average.desc">Rating Descending</option>
-          <option value="vote_average.asc">Rating Ascending</option>
-          <option value="release_date.desc">Release Date Descending</option>
-          <option value="release_date.asc">Release Date Ascending</option>
-        </select>
+    <div className="min-h-screen h-full flex items-center justify-center relative overflow-hidden bg-black bg-opacity-75">
+    {/* Background image for the entire page */}
+      <div 
+        className="absolute inset-0 bg-no-repeat bg-cover bg-center blur-sm opacity-70"
+        style={{ backgroundImage: `url(${loginBg})` }}
+      ></div>
+      <div className="container mx-auto px-4 py-8 relative bg-black bg-opacity-80 backdrop-blur-sm shadow-lg">
+        <div className=" shadow-lg p-6 mb-4">
+          <h1 className="text-3xl text-white font-bold mb-8">Browse Movies</h1>
+          <form onSubmit={handleSearch} className="mb-2 flex items-center gap-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search movies..."
+              className="w-1/2 p-2 border rounded"
+            />
+            <button type="submit" className="bg-red-500 text-white px-4 py-2 rounded">
+              Search
+            </button>
+          </form>
+          <div className="mb-8 flex space-x-4">
+            <select
+              value={selectedGenre}
+              onChange={handleGenreChange}
+              className="p-2 border rounded"
+            >
+              <option value="">All Genres</option>
+              {genres.map(genre => (
+                <option key={genre.id} value={genre.id}>{genre.name}</option>
+              ))}
+            </select>
+            <select
+              value={sortBy}
+              onChange={handleSortChange}
+              className="p-2 border rounded"
+            >
+              <option value="popularity.desc">Popularity Descending</option>
+              <option value="popularity.asc">Popularity Ascending</option>
+              <option value="vote_average.desc">Rating Descending</option>
+              <option value="vote_average.asc">Rating Ascending</option>
+              <option value="release_date.desc">Release Date Descending</option>
+              <option value="release_date.asc">Release Date Ascending</option>
+            </select>
+          </div>
+        </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <div className="wrapper  py-4 rounded-lg">
+              {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+            <div className="mt-8 flex justify-center space-x-2">
+              {Array.from({ length: Math.min(8, totalPages) }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => handlePageChange(i + 1)}
+                  className={`px-3 py-1 rounded ${
+                    page === i + 1 ? 'bg-red-500 text-white' : 'bg-gray-200'
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <div className="wrapper">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-          <div className="mt-8 flex justify-center space-x-2">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => handlePageChange(i + 1)}
-                className={`px-3 py-1 rounded ${
-                  page === i + 1 ? 'bg-red-500 text-white' : 'bg-gray-200'
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
     </div>
   );
 }
