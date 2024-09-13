@@ -95,10 +95,10 @@ export default function Homepage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black" style={{backgroundImage: `linear-gradient(to top, #330e0e, #000000, #af1717)`}}>
+    <div className="min-h-screen bg-black" style={{backgroundImage: `linear-gradient(to bottom, rgb(51, 14, 14), rgb(0 0 0), rgb(57 10 10))`}}>
       {/* Hero Section */}
       <div
-        className="bg-cover bg-center h-screen flex flex-col justify-center items-center text-white relative"
+        className="bg-cover bg-bottom h-[92vh] flex flex-col justify-center items-center text-white relative"
         style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImage})` }}
       >
         <div className="text-center z-10 px-4">
@@ -124,10 +124,10 @@ export default function Homepage() {
 
         {/* Scroll Down Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white">
-          <div className="text-3xl animate-bounce">
+          <div className="text-3xl w-fit mx-auto animate-bounce">
             <BiChevronDown />
           </div>
-          <p className="text-sm">Scroll Down</p>
+          <p className="text-sm animate-pulse">Scroll Down</p>
         </div>
       </div>
 

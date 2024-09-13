@@ -40,7 +40,7 @@ function Header() {
             <TiClipboard className="inline-block mr-2"/>
             Watchlist
           </Link></li>
-          <li><button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="w-full text-center hover:text-black text-lg transition-all duration-200 bg-red-600 px-2 py-1">
+          <li><button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="w-full text-center hover:text-black text-lg transition-all duration-200 bg-red-600 px-2 py-1 rounded-lg">
             <IoLogOutOutline className="inline-block mr-2"/>
             Logout
           </button></li>
@@ -59,7 +59,7 @@ function Header() {
   );
 
   return (
-    <header className="bg-black text-white relative z-50 ">
+    <header className="bg-black text-white z-50 sticky top-0 shadow-lg">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-3xl hover:opacity-60 transition-all duration-100 z-50">
           <img src={logo} alt="CineWatch" className="h-12 inline-block mr-2"/>

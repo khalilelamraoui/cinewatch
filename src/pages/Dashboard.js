@@ -108,7 +108,17 @@ function Dashboard() {
               <h2 className="text-2xl font-bold text-white">Your Watchlist</h2>
               <Link to="/watchlist" className="text-slate-600 italic hover:text-red-700 text-sm font-medium transition duration-300 ease-in-out">View All</Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="flex items-center flex-nowrap overflow-auto gap-2
+              [&::-webkit-scrollbar]:w-2
+              [&::-webkit-scrollbar-track]:rounded-full
+              [&::-webkit-scrollbar-thumb]:rounded-full
+            [&::-webkit-scrollbar-track]:bg-red-600/40
+            [&::-webkit-scrollbar-thumb]:bg-red-700
+            dark:[&::-webkit-scrollbar-track]:bg-red-600/40
+            dark:[&::-webkit-scrollbar-thumb]:bg-red-700
+            [&::-webkit-scrollbar-thumb]:mt-2
+            dark:[&::-webkit-scrollbar-track]:mt-2"
+            >
               {lastFiveMovies.map(movie => (
                 <div key={movie.id} className="flex flex-col">
                   <div className="card bg-gray-700 rounded-lg overflow-hidden shadow-lg">
