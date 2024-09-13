@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getCurrentUser, getWatchlist, toggleWatchedStatus } from '../services/auth';
-import { MdDeleteOutline, MdPlaylistAdd, MdList, MdArrowForward } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { MdDeleteOutline, MdPlaylistAdd, MdArrowForward } from "react-icons/md";
+import { getWatchlist, toggleWatchedStatus } from '../services/auth';
+import WatchlistItem from './WatchlistItem';
 
 const ListCover = ({ movies }) => {
-  // Select up to 3 movies for the cover
   const coverMovies = movies.slice(0, 3);
 
   return (
@@ -37,27 +37,25 @@ const ListCover = ({ movies }) => {
   );
 };
 
-function Watchlist() {
-  const [lists, setLists] = useState([
-    { id: 'watchlist', name: 'Watchlist', movies: [] },
-    { id: 'watched', name: 'Watched', movies: [] }
-  ]);
-  const [newListName, setNewListName] = useState('');
-  const [showNewListForm, setShowNewListForm] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [showMoveToMenu, setShowMoveToMenu] = useState(false);
-
-  useEffect(() => {
-    const allMovies = getWatchlist();
-    const watchlistMovies = allMovies.filter(movie => !movie.watched);
-    const watchedMovies = allMovies.filter(movie => movie.watched);
-    
-    setLists(prevLists => [
-      { ...prevLists[0], movies: watchlistMovies },
-      { ...prevLists[1], movies: watchedMovies },
-      ...prevLists.slice(2)
+function ListOverview() {
+    const [lists, setLists] = useState([
+      { id: 'watchlist', name: 'Watchlist', movies: [] },
+      { id: 'watched', name: 'Watched', movies: [] }
     ]);
-  }, []);
+    const [newListName, setNewListName] = useState('');
+    const [showNewListForm, setShowNewListForm] = useState(false);
+  
+    useEffect(() => {
+      const allMovies = getWatchlist();
+      const watchlistMovies = allMovies.filter(movie => !movie.watched);
+      const watchedMovies = allMovies.filter(movie => movie.watched);
+      
+      setLists(prevLists => [
+        { ...prevLists[0], movies: watchlistMovies },
+        { ...prevLists[1], movies: watchedMovies },
+        ...prevLists.slice(2)
+      ]);
+    }, []);
 
   const handleCreateList = () => {
     if (newListName.trim()) {
@@ -72,27 +70,43 @@ function Watchlist() {
     }
   };
 
-  const handleMoveToList = (movieId, sourceListId, targetListId) => {
-    setLists(prevLists => {
-      const sourceList = prevLists.find(list => list.id === sourceListId);
-      const movieToMove = sourceList.movies.find(movie => movie.id === movieId);
-      
-      return prevLists.map(list => {
-        if (list.id === sourceListId) {
-          return { ...list, movies: list.movies.filter(movie => movie.id !== movieId) };
-        }
-        if (list.id === targetListId) {
-          return { ...list, movies: [...list.movies, movieToMove] };
-        }
-        return list;
-      });
-    });
-    setShowMoveToMenu(false);
-    setSelectedMovie(null);
-  };
-
   const handleDeleteList = (listId) => {
     setLists(prevLists => prevLists.filter(list => list.id !== listId));
+  };
+
+  const handleRemoveMovie = (listId, movieId) => {
+    setLists(prevLists => 
+      prevLists.map(list => 
+        list.id === listId 
+          ? { ...list, movies: list.movies.filter(movie => movie.id !== movieId) }
+          : list
+      )
+    );
+  };
+
+  const handleToggleWatched = (listId, movieId) => {
+    if (toggleWatchedStatus(movieId)) {
+      setLists(prevLists =>
+        prevLists.map(list => {
+          if (list.id === 'watchlist' || list.id === 'watched') {
+            const updatedMovies = list.movies.filter(movie => movie.id !== movieId);
+            return { ...list, movies: updatedMovies };
+          }
+          return list;
+        })
+      );
+
+      // Fetch the updated watchlist
+      const updatedWatchlist = getWatchlist();
+      const watchlistMovies = updatedWatchlist.filter(movie => !movie.watched);
+      const watchedMovies = updatedWatchlist.filter(movie => movie.watched);
+
+      setLists(prevLists => [
+        { ...prevLists[0], movies: watchlistMovies },
+        { ...prevLists[1], movies: watchedMovies },
+        ...prevLists.slice(2)
+      ]);
+    }
   };
 
   return (
@@ -144,41 +158,29 @@ function Watchlist() {
                   )}
                 </div>
               </div>
+              <div className="mt-4 space-y-4">
+                {list.movies.slice(0, 3).map(movie => (
+                  <WatchlistItem
+                    key={movie.id}
+                    movie={movie}
+                    onRemove={(movieId) => handleRemoveMovie(list.id, movieId)}
+                    onToggleWatched={(movieId) => handleToggleWatched(list.id, movieId)}
+                    showWatchedToggle={list.id === 'watchlist'}
+                  />
+                ))}
+              </div>
               <Link 
                 to={`/list/${list.id}`}
-                className="mt-2 inline-flex items-center text-blue-500 hover:text-blue-600"
+                className="mt-4 inline-flex items-center text-blue-500 hover:text-blue-600"
               >
-                View List <MdArrowForward className="ml-1" />
+                View All <MdArrowForward className="ml-1" />
               </Link>
             </div>
           </div>
         ))}
       </div>
-
-      {selectedMovie && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2">Move "{selectedMovie.title}" to:</h3>
-            {lists.filter(list => list.id !== selectedMovie.currentList).map(list => (
-              <button
-                key={list.id}
-                onClick={() => handleMoveToList(selectedMovie.id, selectedMovie.currentList, list.id)}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                {list.name}
-              </button>
-            ))}
-            <button 
-              onClick={() => setSelectedMovie(null)}
-              className="mt-4 bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
-export default Watchlist;
+export default ListOverview;

@@ -12,6 +12,8 @@ import Watchlist from './pages/Watchlist';
 import Homepage from './pages/Homepage';
 import MovieDetails from './pages/MovieDetails';
 import { isAuthenticated } from './services/auth';
+import ListOverview from './components/ListOverview';
+import ListView from './components/ListView';
 import './App.css';
 
 function PrivateRoute({ children }) {
@@ -34,6 +36,8 @@ function App() {
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/watchlist" element={<PrivateRoute><Watchlist /></PrivateRoute>} />
             <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/list-overview" element={<ListOverview/>} />
+            <Route path="/list/:listId" element={<ListView/>} />
           </Routes>
         </main>
         <Footer />
