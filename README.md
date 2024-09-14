@@ -27,7 +27,7 @@
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/cinewatch.git
+   git clone https://github.com/khalilelamraoui/cinewatch.git
    ```
 2. Navigate to the project directory:
    ```sh
@@ -47,10 +47,41 @@
 2. Open your browser and visit `http://localhost:3000`
 
 ## API
+CineWatch uses The Movie Database (TMDB) API to fetch movie and TV show data.
 
-CineWatch uses [API Name] to fetch movie and TV show data.
+### Key Endpoints
 
-[Include brief information about key endpoints and usage]
+1. **Popular Movies**
+   - Function: `getPopularMovies(page, sortBy)`
+   - Fetches a list of popular movies
+   - Parameters: page (for pagination), sortBy (e.g., 'popularity.desc')
+
+2. **Search Movies**
+   - Function: `searchMovies(query, page)`
+   - Searches for movies based on a query string
+   - Parameters: query (search term), page (for pagination)
+
+3. **Movies by Genre**
+   - Function: `getMoviesByGenre(genreId, page, sortBy)`
+   - Fetches movies filtered by a specific genre
+   - Parameters: genreId, page, sortBy
+
+4. **Get Genres**
+   - Function: `getGenres()`
+   - Fetches a list of all available movie genres
+
+### Usage
+
+- The API is used to populate the main browse page with movies.
+- It supports searching, filtering by genre, and sorting.
+- Pagination is implemented for browsing through large sets of results.
+- Genre list is fetched once and used to populate the genre filter dropdown.
+
+### Error Handling
+
+- API calls include error handling to manage failed requests gracefully.
+- Errors are logged to the console for debugging purposes.
+
 
 ## Contributing
 
@@ -63,8 +94,8 @@ This project is licensed under the [Your License] License - see the [LICENSE](LI
 ---
 
 <div align="center">
-  Made with ❤️ by [Your Team Names]
+  Made with ❤️ by Leknouch Wissal - El Amraoui Khalil
 
-  [GitHub](https://github.com/your-username) • [LinkedIn](https://linkedin.com/in/your-profile)
-
+  Leknouch Wissal: [GitHub](https://github.com/Clear008) • [LinkedIn](https://www.linkedin.com/in/wissal-leknouch-420181313/)
+  El Amraoui Khalil: [GitHub](https://github.com/khalilelamraoui) • [LinkedIn](https://www.linkedin.com/in/khalil-el-amraoui-5834a9216/)
 </div>
