@@ -96,7 +96,7 @@ function Browse() {
               <select
                 value={selectedGenre}
                 onChange={handleGenreChange}
-                className="p-2 border rounded"
+                className="p-2 border rounded cursor-pointer"
               >
                 <option value="">All Genres</option>
                 {genres.map(genre => (
@@ -106,7 +106,7 @@ function Browse() {
               <select
                 value={sortBy}
                 onChange={handleSortChange}
-                className="p-2 border rounded"
+                className="p-2 border rounded cursor-pointer"
               >
                 <option value="popularity.desc">Popularity Descending</option>
                 <option value="popularity.asc">Popularity Ascending</option>

@@ -94,7 +94,7 @@ function Dashboard() {
               <h2 className="text-2xl font-bold text-white mb-6">Quick Links</h2>
               <ul className="space-y-4">
                 <li>
-                  <Link to="/" className="text-red-500 hover:text-red-700 text-lg font-medium transition duration-300 ease-in-out">Browse Movies</Link>
+                  <Link to="/browse" className="text-red-500 hover:text-red-700 text-lg font-medium transition duration-300 ease-in-out">Browse Movies</Link>
                 </li>
                 <li>
                   <Link to="/watchlist" className="text-red-500 hover:text-red-700 text-lg font-medium transition duration-300 ease-in-out">Manage Watchlist</Link>
