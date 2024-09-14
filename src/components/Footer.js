@@ -48,7 +48,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-red-600 text-center text-gray-400">
-          <p>&copy; {currentYear} Nest. All rights reserved.</p>
+          <p>&copy; {currentYear} Cinewatch. All rights reserved.</p>
         </div>
       </div>
     </footer>

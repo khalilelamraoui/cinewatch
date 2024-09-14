@@ -21,7 +21,7 @@
 
 ## Demo
 
-[Include screenshots or GIFs of your application here]
+<img src="./webapp.png" alt="CineWatch Webapp" />
 
 ## Installation
 
