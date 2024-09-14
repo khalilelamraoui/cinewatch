@@ -89,7 +89,7 @@ We welcome feedback and suggestions! Please open an issue or submit a pull reque
 
 ## License
 
-This project is licensed under the [Your License] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
