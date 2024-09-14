@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser, getWatchlist, toggleWatchedStatus } from '../services/auth';
+import { removeFromWatchlist } from '../services/localStorage';
 import WatchlistItem from '../components/WatchlistItem';
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -10,8 +11,14 @@ function Watchlist() {
     setWatchlist(getWatchlist());
   }, []);
 
+  const loadWatchlist = () => {
+    setWatchlist(getWatchlist());
+  };
+
   const handleRemove = (movieId) => {
-    setWatchlist(watchlist.filter(movie => movie.id !== movieId));
+    if (removeFromWatchlist(movieId)) {
+      loadWatchlist();
+    }
   };
   
   const handleToggleWatched = (movieId) => {
@@ -26,10 +33,10 @@ function Watchlist() {
     <div className='container-fluid relative'>
       <div className='absolute inset-0 bg-no-repeat bg-cover bg-center z-[-1] ' style={{backgroundImage: `url('https://i.ytimg.com/vi/WV4t0MkDGEQ/maxresdefault.jpg')`}}></div>
         <div className='w-full bg-black bg-opacity-70 backdrop-blur-sm'>
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 py-8 min-h-[90vh]">
             <h1 className="text-3xl text-white font-bold mb-8">My Watchlist</h1>
             {watchlistReverse.length === 0 ? (
-              <p>Your watchlist is empty. Start browsing movies to add some!</p>
+              <p className='text-white'>Your watchlist is empty. Start browsing movies to add some!</p>
             ) : (
               <div className="flex items-center gap-4 flex-wrap">
                 {watchlist.map(movie => (
@@ -46,7 +53,7 @@ function Watchlist() {
                             ? movie.overview.substring(0, 100) + '...'
                             : movie.overview}
                         </p>
-                        <button onClick={handleRemove} className='mt-4 inline-flex gap-2 items-center hover:bg-red-600 bg-white text-black hover:text-white'>
+                        <button onClick={() => handleRemove(movie.id)} className='mt-4 inline-flex gap-2 items-center hover:bg-red-600 bg-white text-black hover:text-white'>
                             <span className='text-xl'>
                             <MdDeleteOutline/>
                             </span>

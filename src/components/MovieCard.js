@@ -28,7 +28,7 @@ function MovieCard({ movie }) {
             ? movie.overview.substring(0, 100) + '...'
             : movie.overview}
         </p>
-        <button onClick={handleAddToWatchlist} className='mt-4 inline-flex gap-2 items-center'>
+        <button onClick={handleAddToWatchlist} className='mt-4 inline-flex gap-2 items-center hover:bg-red-600 bg-white text-black hover:text-white'>
             <span className='text-xl'>
                 <MdOutlineLibraryAdd />
             </span>
