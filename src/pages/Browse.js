@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPopularMovies, searchMovies, getMoviesByGenre, getGenres } from '../services/api';
 import MovieCard from '../components/MovieCard';
-import loginBg from '../img/loginbg.jpg';
 
 function Browse() {
   const [movies, setMovies] = useState([]);
@@ -20,6 +19,7 @@ function Browse() {
 
   useEffect(() => {
     fetchMovies();
+    // eslint-disable-next-line
   }, [selectedGenre, sortBy, page]);
 
   const fetchGenres = async () => {

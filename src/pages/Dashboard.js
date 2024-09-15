@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCurrentUser, getWatchlist, toggleWatchedStatus } from '../services/auth';
 import loginBg from '../img/loginbg.jpg';
-import dashboardBg from '../img/dashboard.jpg';
 
 // Function to generate greeting message
 const getGreeting = (user) => {
