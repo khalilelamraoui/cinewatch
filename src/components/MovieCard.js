@@ -1,17 +1,25 @@
 // src/components/MovieCard.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addToWatchlist } from '../services/localStorage';
 import './MovieCard.css';
 import { MdOutlineLibraryAdd } from "react-icons/md";
 
 function MovieCard({ movie }) {
+  const navigate = useNavigate();
+
   const handleAddToWatchlist = (e) => {
     e.preventDefault(); // Prevent the link from being followed
     if (addToWatchlist(movie)) {
       alert('Added to watchlist!');
     } else {
-      alert('Movie is already in your watchlist or you\'re not logged in.');
+      if (!localStorage.getItem('user')) {
+        alert('Please log in to add movies to your watchlist.');
+        navigate('/login');
+        return;
+      } else {
+        alert('Movie is already in your watchlist.');
+      }
     }
   };
 
