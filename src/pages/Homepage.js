@@ -4,10 +4,12 @@ import backgroundImage from '../img/bg.jpg';
 import { BiMoviePlay, BiListUl, BiTrendingUp, BiUserCircle, BiChevronLeft, BiChevronRight, BiChevronDown } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 
+// API configuration
 const API_KEY = 'ee556e88ca03d6d73df9c6cf5f90d3d2';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
+// Function to fetch movies based on type (popular or now playing)
 const fetchMovies = async (type) => {
   const endpoint = type === 'popular' 
     ? `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
@@ -23,6 +25,7 @@ const fetchMovies = async (type) => {
   }
 };
 
+// Component to display a section of movies with horizontal scrolling
 const MovieSection = ({ title, movies }) => {
   const scrollContainerRef = useRef(null);
 
@@ -36,14 +39,17 @@ const MovieSection = ({ title, movies }) => {
 
   return (
     <div className="my-8 relative">
+      {/* Section Title */}
       <h2 className="text-3xl font-bold text-white mb-4">{title}</h2>
       <div className="relative">
+        {/* Scroll Left Button */}
         <button
           onClick={() => scroll('left')}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
         >
           <BiChevronLeft size={24} />
         </button>
+        {/* Scrollable Container */}
         <div
           ref={scrollContainerRef}
           className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
@@ -52,11 +58,13 @@ const MovieSection = ({ title, movies }) => {
           {movies.map(movie => (
             <Link key={movie.id} to={`/movie/${movie.id}`} className="relative flex-shrink-0" style={{ width: '200px' }}>
               <div className="relative group">
+                {/* Movie Poster */}
                 <img
                   src={`${IMAGE_BASE_URL}${movie.poster_path}`}
                   alt={movie.title}
                   className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"
                 />
+                {/* Rating Badge */}
                 <div className="absolute top-2 right-2 bg-yellow-500 text-white text-xs rounded-full px-2 py-1 flex items-center">
                   <FaStar size={14} className="mr-1" />
                   {movie.vote_average.toFixed(1)}
@@ -69,6 +77,7 @@ const MovieSection = ({ title, movies }) => {
             </Link>
           ))}
         </div>
+        {/* Scroll Right Button */}
         <button
           onClick={() => scroll('right')}
           className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
@@ -80,11 +89,13 @@ const MovieSection = ({ title, movies }) => {
   );
 };
 
+// Main Homepage component
 export default function Homepage() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [latestMovies, setLatestMovies] = useState([]);
 
   useEffect(() => {
+    // Load movies when component mounts
     const loadMovies = async () => {
       const popular = await fetchMovies('popular');
       const latest = await fetchMovies('latest');
@@ -108,6 +119,7 @@ export default function Homepage() {
           <p className='text-xl sm:text-2xl mb-8 max-w-2xl mx-auto'>
             Discover, track, and enjoy your favorite movies with CineWatch
           </p>
+           {/* Feature Items */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-10 max-w-4xl mx-auto">
             <FeatureItem icon={<BiMoviePlay size={40} />} text="Vast Library of Content" />
             <FeatureItem icon={<BiListUl size={40} />} text="Personalized Watchlists" />
@@ -139,7 +151,7 @@ export default function Homepage() {
     </div>
   );
 }
-
+// Component to display individual feature items in the hero section
 const FeatureItem = ({ icon, text }) => (
   <div className="flex flex-col items-center">
     <div className="text-red-500 mb-2">

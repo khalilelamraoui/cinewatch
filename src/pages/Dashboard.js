@@ -16,18 +16,22 @@ const getGreeting = (user) => {
 };
 
 function Dashboard() {
+  // Get the current user details
   const user = getCurrentUser();
+  // State to hold the watchlist of the user
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
     setWatchlist(getWatchlist());
   }, []);
 
+  // Calculate the total of movies,watched movies, and the remaining unwatched movies
   const totalMovies = watchlist.length;
   const watchedCount = watchlist.filter(movie => movie.watched).length;
   const remainingCount = totalMovies - watchedCount;
   const lastFiveMovies = watchlist.slice(-5);
 
+   // Function to toggle the watched status of a movie
   const handleToggleWatched = (movieId) => {
     if (toggleWatchedStatus(movieId)) {
       setWatchlist(getWatchlist());
@@ -59,11 +63,13 @@ function Dashboard() {
               View Watchlist
             </Link>
           </div>
-          
+
           <div className='flex flex-col lg:flex-row gap-4 mb-8'>
+
             {/* Movie Stats Section */}
             <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 flex-1">
               <h2 className="text-2xl font-bold text-white mb-6">Movie Stats</h2>
+
               <div className="flex justify-between items-center mb-4">
                 <p className="text-white font-bold">Total Movies:</p>
                 <p className="text-white font-semibold">{totalMovies}</p>
@@ -101,12 +107,15 @@ function Dashboard() {
               </ul>
             </div> 
           </div>
+
           {/* Watchlist Section */}
           <div className="bg-black bg-opacity-90 rounded-lg shadow-lg p-6 mb-8">
             <div className='flex items-center gap-4 mb-6'>
               <h2 className="text-2xl font-bold text-white">Your Watchlist</h2>
               <Link to="/watchlist" className="text-slate-600 italic hover:text-red-700 text-sm font-medium transition duration-300 ease-in-out">View All</Link>
             </div>
+
+            {/* Horizontal scrolling list of the last 5 movies */}
             <div className="flex items-center flex-nowrap overflow-auto gap-2
               [&::-webkit-scrollbar]:w-2
               [&::-webkit-scrollbar-track]:rounded-full
@@ -130,6 +139,8 @@ function Dashboard() {
                       <h1 className='text-sm font-semibold text-white text-center truncate'>{movie.title}</h1>
                     </div>
                   </div>
+
+                  {/* Button to toggle the watched status of the movie */}
                   <button 
                     onClick={() => handleToggleWatched(movie.id)}
                     className={`mt-3 px-3 py-1 rounded text-xs ${movie.watched ? 'bg-green-500' : 'bg-gray-500'} text-white w-full`}

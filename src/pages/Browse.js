@@ -12,16 +12,17 @@ function Browse() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   
-
+  // Fetch genres when the component mounts
   useEffect(() => {
     fetchGenres();
   }, []);
 
+  // Fetch movies (selectedGenre, sortBy, page)
   useEffect(() => {
     fetchMovies();
-    // eslint-disable-next-line
   }, [selectedGenre, sortBy, page]);
 
+  // Function to fetch available genres from the API
   const fetchGenres = async () => {
     try {
       const genreList = await getGenres();
@@ -31,6 +32,7 @@ function Browse() {
     }
   };
 
+  // Function to fetch movies based on search query, selected genre, or popularity
   const fetchMovies = async () => {
     setLoading(true);
     try {
@@ -51,6 +53,7 @@ function Browse() {
     }
   };
 
+  // Function to handle search form submission
   const handleSearch = async (e) => {
     e.preventDefault();
     setSelectedGenre('');
@@ -58,28 +61,37 @@ function Browse() {
     await fetchMovies();
   };
 
+  // Function to handle genre selection change
   const handleGenreChange = (e) => {
     setSelectedGenre(e.target.value);
     setSearchQuery('');
     setPage(1);
   };
 
+  // Function to handle sorting change (e.g., popularity, rating)
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
     setPage(1);
   };
 
+  // Function to handle page change for pagination
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
 
   return (
     <div className='container-fluid relative'>
-      <div className='absolute inset-0 bg-no-repeat bg-cover bg-center z-[-1] ' style={{backgroundImage: `url('https://i.ytimg.com/vi/WV4t0MkDGEQ/maxresdefault.jpg')`}}></div>
+      {/* Background image for the entire page */}
+      <div className='absolute inset-0 bg-no-repeat bg-cover bg-center z-[-1] ' style={{backgroundImage: `url('https://i.ytimg.com/vi/WV4t0MkDGEQ/maxresdefault.jpg')`}}>
+      </div>
+
+      {/* Main content wrapper with blur and opacity effect */}
       <div className='w-full bg-black bg-opacity-70 backdrop-blur-sm'>
         <div className="container mx-auto px-4 py-8">
+           {/* Search and filter form */}
           <div className="bg-black bg-opacity-70 shadow-lg p-6 mb-4 rounded-lg">
             <h1 className="text-3xl text-white font-bold mb-8">Browse Movies</h1>
+            {/* Search input */}
             <form onSubmit={handleSearch} className="mb-2 flex items-center gap-2">
               <input
                 type="text"
@@ -92,6 +104,8 @@ function Browse() {
                 Search
               </button>
             </form>
+            
+            {/* Genre and sort filters */}
             <div className="mb-8 flex space-x-4">
               <select
                 value={selectedGenre}
@@ -117,6 +131,8 @@ function Browse() {
               </select>
             </div>
           </div>
+
+          {/* Display loading state or movie cards */}
           {loading ? (
             <p>Loading...</p>
           ) : (
