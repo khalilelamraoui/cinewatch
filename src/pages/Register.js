@@ -33,9 +33,9 @@ function Register() {
       <div 
         className="absolute inset-0 bg-no-repeat bg-cover bg-center"
         style={{
-          backgroundImage: `url(${loginBg})`,
+        backgroundImage: `url(${loginBg})`,
         }}
-      ></div>
+    ></div>
 
       {/* Blur overlay */}
       <div 
