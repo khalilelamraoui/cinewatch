@@ -48,7 +48,16 @@ const Footer = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-red-600 text-center text-gray-400">
-          <p>&copy; {currentYear} Cinewatch. All rights reserved.</p>
+          <p>&copy; {currentYear} Cinewatch. All rights reserved.
+            
+            <div className='inline-flex items-center gap-2 ms-4'>
+              <p className="text-gray-400">Powered By</p>
+                <img src="https://intranet.alxswe.com/assets/holberton-logo-full-alx-d053727941512ebe04b797ca87d81a195004e9ff2d8a6aedf4004c5365cf8944.png"
+                  alt="ALX" 
+                  className="h-8 inline-block mr-2 rounded-lg bg-white"
+                />
+            </div>
+          </p>
         </div>
       </div>
     </footer>
