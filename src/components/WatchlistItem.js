@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { removeFromWatchlist } from '../services/localStorage';
 import { getCurrentUser, getWatchlist, toggleWatchedStatus } from '../services/auth';
-import { Link } from 'react-router-dom';
 import './MovieCard.css';
-import { MdOutlineLibraryAdd } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 
 function WatchlistItem({ movie, onRemove }) {

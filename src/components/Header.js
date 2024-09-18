@@ -5,7 +5,7 @@ import { BiMoviePlay } from "react-icons/bi";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { TiClipboard } from "react-icons/ti";
 import { IoLogOutOutline } from "react-icons/io5";
-import { FiLogIn, FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 import logo from '../img/cinewatch.png';
 
 

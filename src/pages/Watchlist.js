@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getCurrentUser, getWatchlist, toggleWatchedStatus } from '../services/auth';
+import { getWatchlist, toggleWatchedStatus } from '../services/auth';
 import { removeFromWatchlist } from '../services/localStorage';
-import WatchlistItem from '../components/WatchlistItem';
 import { MdDeleteOutline } from "react-icons/md";
 
 function Watchlist() {
