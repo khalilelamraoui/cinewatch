@@ -14,10 +14,18 @@ import MovieDetails from './pages/MovieDetails';
 import { isAuthenticated } from './services/auth';
 import './App.css';
 
+/**
+ * PrivateRoute component is used to protect routes that require authentication.
+ * If the user is authenticated, it renders the children components; otherwise, it redirects to the login page.
+ */
 function PrivateRoute({ children }) {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 }
 
+/**
+ * App component is the main component that sets up routing for the application.
+ * It includes the Header and Footer components and defines routes for different pages.
+ */
 function App() {
   return (
     <Router>
