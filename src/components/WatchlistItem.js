@@ -36,6 +36,7 @@ function WatchlistItem({ movie, onRemove }) {
 
   return (
     <>
+    {/* Back-up */}
       {/* <div className="bg-white rounded-lg shadow-md overflow-hidden flex">
         <img
           src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -56,11 +57,13 @@ function WatchlistItem({ movie, onRemove }) {
       {watchlist.map(movie => (
         <div key={movie.id} className="flex flex-col">
           <div className="card">
+            {/* Display the movie poster image */}
             <img 
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
             />
             <div className="info">
+              {/* Display the movie title */}
               <h1 className='text-xl font-semibold'>{movie.title}</h1>
               <p>
                 {movie.overview.length > 100
