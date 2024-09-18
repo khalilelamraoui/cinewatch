@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 function Register() {
+  // State variables to track user input and potential error messages
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,15 +14,19 @@ function Register() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Handle form submission and registration logic
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Ensure passwords match before proceeding
     if (password !== confirmPassword) {
       setError("Passwords don't match");
       return;
     }
+    // If registration is successful, log the user in and redirect to the dashboard
     if (register(username, email, password)) {
       login(username, password);
       navigate('/dashboard');
+    // Display error if registration fails
     } else {
       setError('Username or email already exists');
     }
@@ -67,7 +72,7 @@ function Register() {
         )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm">
-            {/* Username field with icon */}
+            {/* Username field */}
             <div className="relative">
               <label htmlFor="username" className="sr-only">Username</label>
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
@@ -84,7 +89,7 @@ function Register() {
               />
             </div>
 
-            {/* Email field with icon */}
+            {/* Email field */}
             <div className="relative mt-2">
               <label htmlFor="email" className="sr-only">Email</label>
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
@@ -101,7 +106,7 @@ function Register() {
               />
             </div>
 
-            {/* Password field with icon */}
+            {/* Password field */}
             <div className="relative mt-2">
               <label htmlFor="password" className="sr-only">Password</label>
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
@@ -118,7 +123,7 @@ function Register() {
               />
             </div>
 
-            {/* Confirm Password field with icon */}
+            {/* Confirm Password field */}
             <div className="relative mt-2">
               <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
@@ -135,7 +140,7 @@ function Register() {
               />
             </div>
           </div>
-          
+          {/* Submit button for form */}
           <div>
             <button
               type="submit"
@@ -145,7 +150,7 @@ function Register() {
             </button>
           </div>
         </form>
-        
+        {/* Link to login if user already has an account */}
         <div className="text-center">
           <p className="mt-2 text-sm text-gray-200">
             Already have an account? {' '}

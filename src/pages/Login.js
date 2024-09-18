@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
+  // Define state variables for the form fields
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,7 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (login(usernameOrEmail, password)) {
@@ -22,6 +24,7 @@ function Login() {
     }
   };
 
+  // Toggle password visibility
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -59,6 +62,7 @@ function Login() {
             Login
           </h2>
         </div>
+        {/* Display error message if login fails */}
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <span className="block sm:inline">{error}</span>
@@ -136,6 +140,7 @@ function Login() {
           </div>
 
           <div>
+            {/* Submit button */}
             <button
               type="submit"
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all"
@@ -145,6 +150,7 @@ function Login() {
           </div>
         </form>
         
+        {/* Link to register page */}
         <div className="text-center">
           <p className="mt-2 text-sm text-gray-200">
             Don't have an account? {' '}

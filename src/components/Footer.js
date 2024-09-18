@@ -3,20 +3,23 @@ import { Link } from 'react-router-dom';
 import logo from '../img/cinewatch.png';
 
 const Footer = () => {
+   // Get the current year for the copyright section
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-black text-white pt-10 pb-6 px-4 font-work-sans">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start">
+          {/* Company Logo and Tagline */}
           <div className="mb-6 md:mb-0">
             <Link to="/" className="text-3xl hover:opacity-60 transition-all duration-100 z-50">
               <img src={logo} alt="CineWatch" className="h-12 inline-block mr-2"/>
             </Link>
             <p className="text-gray-400 text-lg mt-2">Your Next Movie, One List Away.</p>
           </div>
-          
+          {/* Footer Navigation Links */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Company Section */}
             <div>
               <h3 className="text-lg font-semibold mb-3 text-red-600">Company</h3>
               <ul className="space-y-2">
@@ -27,6 +30,7 @@ const Footer = () => {
               </ul>
             </div>
             
+            {/* Support Section */}
             <div>
               <h3 className="text-lg font-semibold mb-3 text-red-600">Support</h3>
               <ul className="space-y-2">
@@ -36,6 +40,7 @@ const Footer = () => {
               </ul>
             </div>
             
+            {/* About Section */}
             <div>
               <h3 className="text-lg font-semibold mb-3 text-red-600">About</h3>
               <ul className="space-y-2">
@@ -47,6 +52,7 @@ const Footer = () => {
           </div>
         </div>
         
+        {/* Copyright and Powered By Section */}
         <div className="mt-8 pt-8 border-t border-red-600 text-center text-gray-400">
           <p>&copy; {currentYear} Cinewatch. All rights reserved.
             

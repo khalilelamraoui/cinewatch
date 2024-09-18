@@ -16,7 +16,7 @@ function ForgotPassword() {
     if (userExists) {
       setMessage('If an account with that email exists, we have sent a password reset link.');
       setTimeout(() => {
-        navigate('/reset-password', { state: { email } });  // Pass email to reset password page
+        navigate('/reset-password', { state: { email } });
       }, 3000);
     } else {
       setMessage('Invalid email address. Please try again.');
