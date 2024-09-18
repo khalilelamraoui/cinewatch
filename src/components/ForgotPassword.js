@@ -4,17 +4,23 @@ import { getUsers } from '../services/auth';
 import loginBg from '../img/loginbg.jpg';
 
 function ForgotPassword() {
+  // State variables to manage the email input and response message
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  // Hook for navigation
   const navigate = useNavigate();
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Retrieve users and check if the email exists
     const users = getUsers();
     const userExists = users.some(user => user.email === email);
 
+    // Display message based on whether the email exists
     if (userExists) {
       setMessage('If an account with that email exists, we have sent a password reset link.');
+      // Navigate to the reset-password page after a delay
       setTimeout(() => {
         navigate('/reset-password', { state: { email } });
       }, 3000);
@@ -41,7 +47,7 @@ function ForgotPassword() {
           background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%)'
         }}
       ></div>
-      
+      {/* Main content container */}
       <div className="max-w-md w-full space-y-8 bg-black bg-opacity-30 backdrop-filter backdrop-blur-md p-8 shadow-lg rounded-lg relative z-10">
         <div className="text-center">
           <h2 className="mt-6 text-center text-3xl font-bold text-red-600">
@@ -53,6 +59,7 @@ function ForgotPassword() {
             <span className="block sm:inline">{message}</span>
           </div>
         )}
+        {/* Form for entering email address */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="sr-only">
@@ -78,6 +85,7 @@ function ForgotPassword() {
             </button>
           </div>
         </form>
+        {/* Link to navigate back to the login page */}
         <div>
           <Link to="/login" className="font-medium text-red-600 hover:text-red-800">
             Back to Login

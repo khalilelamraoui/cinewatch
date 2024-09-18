@@ -1,38 +1,46 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getUsers, setUsers } from '../services/auth'; // Import necessary functions
-import loginBg from '../img/loginbg.jpg';
+import { getUsers, setUsers } from '../services/auth'; 
+import loginBg from '../img/loginbg.jpg'; 
+
 
 function ResetPassword() {
-  const [password, setPassword] = useState('');
+  //ResetPassword component
+  const [password, setPassword] = useState(''); 
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();  // Use this to get the email from state
-  const { email } = location.state || {};  // Get the email from the navigation state
+  const location = useLocation();
+  const { email } = location.state || {};
 
+ 
+  // Prevent default form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+
     if (!email) {
       setMessage('Invalid reset request.');
       return;
     }
 
+    // Error message if passwords do not match
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
+      setMessage('Passwords do not match'); 
       return;
     }
 
-    const users = getUsers();
+    const users = getUsers(); 
     const userIndex = users.findIndex(user => user.email === email);
 
+    // Error message if email is not found
     if (userIndex === -1) {
       setMessage('Invalid reset request.');
       return;
     }
 
-    users[userIndex].password = password;
-    setUsers(users);  // Update the users in local storage
+    // Update user's password
+    users[userIndex].password = password; 
+    setUsers(users);  // Save updated users to local storage
 
     setMessage('Password has been reset successfully');
     setTimeout(() => {
@@ -42,11 +50,14 @@ function ResetPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background image */}
       <div 
         className="absolute inset-0 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${loginBg})` }}
       />
+      {/* Blur overlay */}
       <div className="absolute inset-0 backdrop-blur-sm" />
+      {/* Gradient overlay */}
       <div 
         className="absolute inset-0"
         style={{
@@ -59,12 +70,14 @@ function ResetPassword() {
           Reset Password
         </h2>
         
+        {/* Display feedback message */}
         {message && (
           <div className={`${message.includes('successfully') ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700'} px-4 py-3 rounded relative`} role="alert">
             <span className="block sm:inline">{message}</span>
           </div>
         )}
         
+        {/* Password reset form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="password" className="sr-only">New Password</label>
